@@ -1,34 +1,41 @@
 <?php
 session_start();
+header('Access-Control-Allow-Origin: *');
+
+header('Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT');
+
+header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization");
+
+
+// connection to database file
   require('../db/dbconn.php');
 
-  $username =  $password = "";
-
-  $sql = "SELECT * FROM admin";
-
-  
+ 
+//sql statement to pull username and password from admin table
+  $sql = "SELECT * FROM admin"; 
   if ($result = $conn->query($sql)) {
     while ($row = $result->fetch_assoc()) {
     $username = $row['username'];
     $password = $row['password'];
   }
 }
-  
-  if(isset($_POST['submit'])){
-    //check that data is being sent across pages
-    if(!empty($_POST['username'] && !empty($_POST['password']))){
+  //fetch json data sent from angular
+$data = json_decode(file_get_contents("php://input"), TRUE);
+$user = $data['username'];
+$pass = $data['password'];
+
+
       //verify that the username and password tally with that in the database
-      if($username = $_POST['username'] && $username = $_POST['password']){
-        $_SESSION['username'] = $_POST['username'];
-        $_SESSION['password'] = $_POST['password'];
-          header("Location: dashboard.html");
+      if($username = $user && $password = $pass){
+        $_SESSION['username'] = $username;
+        $_SESSION['password'] = $password;
+        echo "it works"
+         // header("Location: ../dashboard/dashboard.php");
           
       }
       else{
       $error = "Incorrect username or Password";
-      header("Location: ?$error")
+     // header("Location: ?$error");
     }
-    }
-    
+
    
-}

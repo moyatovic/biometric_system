@@ -1,20 +1,22 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.14
--- http://www.phpmyadmin.net
+-- version 4.8.4
+-- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Mar 20, 2019 at 11:49 AM
--- Server version: 5.6.17
--- PHP Version: 5.5.12
+-- Host: 127.0.0.1:3306
+-- Generation Time: Mar 21, 2019 at 03:10 PM
+-- Server version: 5.7.24
+-- PHP Version: 7.2.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `biometric_system`
@@ -26,20 +28,21 @@ SET time_zone = "+00:00";
 -- Table structure for table ` admin`
 --
 
+DROP TABLE IF EXISTS ` admin`;
 CREATE TABLE IF NOT EXISTS ` admin` (
-  `admin_id` int(2) unsigned NOT NULL AUTO_INCREMENT,
-  `firstname` varchar(10) NOT NULL,
-  `lastname` varchar(10) NOT NULL,
-  `username` varchar(25) NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `firstname` varchar(255) NOT NULL,
+  `lastname` varchar(255) NOT NULL,
+  `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  PRIMARY KEY (`admin_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table ` admin`
 --
 
-INSERT INTO ` admin` (`admin_id`, `firstname`, `lastname`, `username`, `password`) VALUES
+INSERT INTO ` admin` (`id`, `firstname`, `lastname`, `username`, `password`) VALUES
 (1, 'adeleke', 'badekale', 'adelekeb', 'ade');
 
 -- --------------------------------------------------------
@@ -48,11 +51,12 @@ INSERT INTO ` admin` (`admin_id`, `firstname`, `lastname`, `username`, `password
 -- Table structure for table `department`
 --
 
+DROP TABLE IF EXISTS `department`;
 CREATE TABLE IF NOT EXISTS `department` (
-  `department_id` int(2) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(25) NOT NULL,
-  PRIMARY KEY (`department_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -60,39 +64,27 @@ CREATE TABLE IF NOT EXISTS `department` (
 -- Table structure for table `employee`
 --
 
+DROP TABLE IF EXISTS `employee`;
 CREATE TABLE IF NOT EXISTS `employee` (
-  `employee_id` int(2) unsigned NOT NULL AUTO_INCREMENT,
-  `firstname` varchar(25) NOT NULL,
-  `lastname` varchar(25) NOT NULL,
-  `middlename` varchar(25) NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `firstname` varchar(255) NOT NULL,
+  `lastname` varchar(255) NOT NULL,
+  `middlename` varchar(255) NOT NULL,
   `dob` date NOT NULL,
-  `address` varchar(225) NOT NULL,
+  `gender` char(1) NOT NULL,
+  `marital status` char(1) NOT NULL,
+  `address` varchar(255) NOT NULL,
   `phone_number` int(11) NOT NULL,
   `joinedfirmdate` date NOT NULL,
-  `department_fk` varchar(2) NOT NULL,
-  `role` varchar(10) NOT NULL,
-  `employment_type` int(11) NOT NULL,
-  PRIMARY KEY (`employee_id`),
-  KEY `department` (`department_fk`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `leave`
---
-
-CREATE TABLE IF NOT EXISTS `leave` (
-  `leave_id` int(2) unsigned NOT NULL AUTO_INCREMENT,
-  `firstname` int(25) NOT NULL,
-  `lastname` varchar(25) NOT NULL,
-  `leavetype` date NOT NULL,
-  `leavedate` date NOT NULL,
-  `resumptiondate` date NOT NULL,
-  `employee_id` int(2) NOT NULL,
-  PRIMARY KEY (`leave_id`),
-  KEY `employee_id` (`employee_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `department_id` int(11) UNSIGNED NOT NULL,
+  `role` varchar(255) NOT NULL,
+  `employment_type` varchar(255) NOT NULL,
+  `createdby` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `department_id` (`department_id`),
+  UNIQUE KEY `createdby` (`createdby`),
+  KEY `department` (`department_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -100,16 +92,35 @@ CREATE TABLE IF NOT EXISTS `leave` (
 -- Table structure for table `report`
 --
 
+DROP TABLE IF EXISTS `report`;
 CREATE TABLE IF NOT EXISTS `report` (
-  `report_id` int(2) unsigned NOT NULL AUTO_INCREMENT,
-  `employee_id` int(2) NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `employee_id` int(11) UNSIGNED NOT NULL,
   `time_in` timestamp NOT NULL,
   `time_out` timestamp NOT NULL,
   `date` date NOT NULL,
-  PRIMARY KEY (`report_id`),
+  PRIMARY KEY (`id`),
   UNIQUE KEY `employee_id_2` (`employee_id`),
   KEY `employee_id` (`employee_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `employee`
+--
+ALTER TABLE `employee`
+  ADD CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `employee_ibfk_2` FOREIGN KEY (`createdby`) REFERENCES ` admin` (`id`);
+
+--
+-- Constraints for table `report`
+--
+ALTER TABLE `report`
+  ADD CONSTRAINT `report_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`) ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

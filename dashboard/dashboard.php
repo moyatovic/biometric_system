@@ -1,5 +1,5 @@
 <html>
-
+<body>
 <?php 
   session_start();
   $_SESSION['username'];
@@ -25,14 +25,12 @@ echo '<div >
           if ($result = $conn->query($query)) {
             while($rows = $conn->fetch()){
               for(i=0; i<=count($rows); i++){
-             echo "<tr><td>" . $rows['']
-
-              "</td></tr>";
+             echo "<tr><td>". "</td></tr>";
               }
             }
           }
-         </tbody>   
-      </table>
-    </div> 
-</html>
 ?>
+
+
+</body>
+</html>
