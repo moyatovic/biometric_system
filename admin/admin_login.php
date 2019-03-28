@@ -25,7 +25,6 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
      
       //verify that the username and password tally with that in the database
       if($username === $user && $password === $pass){
-       
         $token = array();
         $token['id'] = $username;
         //echo JWT::encode($token, 'secret_server_key');
@@ -33,13 +32,14 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
         ?>
         {
           "success": true,
-          "message": "signed in"
+          "secret": "signed in"
         }
           
       
       <?php
       }
       else{
+      //  header("location:localhost:4200/admin/auth?error");
       ?>
         {
           "success": false,
