@@ -22,29 +22,22 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
       $user = $data['username'];
       $pass = $data['password'];
 
+
+        echo $user;
+        echo $username;
      
       //verify that the username and password tally with that in the database
-      if($username === $user && $password === $pass){
-        $token = array();
-        $token['id'] = $username;
-        //echo JWT::encode($token, 'secret_server_key');
-        
-        ?>
-        {
-          "success": true,
-          "secret": "signed in"
-        }
+      if($username != $user && $password != $pass){             
+        echo "{
+          \"success\": false, \"message\": Incorrect username or Password
+        }";
           
       
-      <?php
+     
       }
-      else{
-      //  header("location:localhost:4200/admin/auth?error");
-      ?>
-        {
-          "success": false,
-          "message": "Incorrect username or Password"
+      else
+      { 
+      echo "{\"success\": true, \"message\": signed in}";
         }
-      <?php
-      }     
+      
       ?>
