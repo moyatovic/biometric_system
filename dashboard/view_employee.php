@@ -1,7 +1,7 @@
 <?php
 $data = json_decode(file_get_contents("php://input"));
-include "db.php";
-$sql = "SELECT * FROM employees WHERE _id = '$data->id'";
+include "";
+$sql = "SELECT * FROM employees WHERE id = '$data->id'";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // output data of each row

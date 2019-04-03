@@ -1,5 +1,5 @@
 <?php
-require('../db/dbconn.php')
+require('../db/dbconn.php');
 header("Content-Type: application/json; charset=UTF-8");
 $obj = json_decode($_GET["x"], false);
 
