@@ -1,11 +1,5 @@
 <?php
 session_start();
-header('Access-Control-Allow-Origin: *');
-
-header('Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT');
-
-header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization");
-header("Content-Type: application/json; charset=UTF-8");
 
 
       // connection to database file
@@ -42,14 +36,14 @@ header("Content-Type: application/json; charset=UTF-8");
       }
       else
       { 
-                
+         
+          header( "HTTP/1.1 204 BAD REQUEST" );
         echo "{
           \"success\": false, \"message\": Incorrect username or Password
         }";
-        if($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-          header( "HTTP/1.1 400 BAD REQUEST" );
+       
 
           exit;
                 }
-              }
+              
       ?>

@@ -21,7 +21,7 @@
 
 
   $query = "INSERT INTO employee
-            VALUES($firstname, $lastname, $middlename, $dob, $gender,$marital, $address, $phone, $joinedDate, $department, $role, $employmentType, $createdBy)" or die(mysql_error(http_response_code(400)));
+            VALUES($firstname, $lastname, $middlename, $dob, $gender,$marital, $address, $phone, $joinedDate, $department, $role, $employmentType, $createdBy)" or die(mysql_error());
             echo "successfully added";
 
 
