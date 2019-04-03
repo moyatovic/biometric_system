@@ -37,7 +37,7 @@ session_start();
       else
       { 
          
-          header( "HTTP/1.1 204 BAD REQUEST" );
+          header( "HTTP/1.1 204 invalid credentials" );
         echo "{
           \"success\": false, \"message\": Incorrect username or Password
         }";
