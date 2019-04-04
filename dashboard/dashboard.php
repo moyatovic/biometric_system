@@ -1,5 +1,3 @@
-<html>
-<body>
 <?php 
   require("../db/dbconn.php");
   session_start(); 
@@ -37,6 +35,3 @@ $employees = [];
           
 ?>
 
-
-</body>
-</html>

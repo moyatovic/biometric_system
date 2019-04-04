@@ -1,17 +1,17 @@
 <?php
 $data = json_decode(file_get_contents("php://input"));
-include "";
+require("../db/dbconn.php");
 $sql = "SELECT * FROM employees WHERE id = '$data->id'";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // output data of each row
-     $data = array() ;
+     $emp = array() ;
     while($row = $result->fetch_assoc()) {
-        $data[] = $row;
+        $emp[] = $row;
     }
 } else {
     echo "0 results";
 }
-echo json_encode($data);
+echo json_encode($emp);
 $conn->close();
 ?>
