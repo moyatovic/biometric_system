@@ -7,7 +7,7 @@ $stmt = $conn->prepare("SELECT name FROM ? LIMIT ?");
 $stmt->bind_param("ss", $obj->table, $obj->limit);
 $stmt->execute();
 $result = $stmt->get_result();
-$outp = $result->fetch_all(MYSQLI_ASSOC);
+$output = $result->fetch_all(MYSQLI_ASSOC);
 
-echo json_encode($outp);
+echo json_encode($output);
 ?>

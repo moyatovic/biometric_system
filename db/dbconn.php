@@ -1,5 +1,5 @@
 <?php
-
+require('cors.php');
 
 
 $servername = "localhost";

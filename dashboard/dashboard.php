@@ -2,7 +2,8 @@
 <body>
 <?php 
   session_start(); 
-   require("../db/dbconn.php");
+  require('isloggedin.php');
+  require("../db/dbconn.php");
 
   echo  $_SESSION['username'];
 
@@ -11,7 +12,7 @@
   $date = $data['date'];
 
 
-  $query = "SELECT * FROM `report` JOIN `employee` USING `employee_id`; WHERE date = $date";
+  $query = "SELECT * FROM `timesheet` JOIN `employee` USING `employee_id`; WHERE date = $date";
     
   if ($result = $conn->query($query)) {
   
