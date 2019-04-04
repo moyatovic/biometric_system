@@ -2,40 +2,37 @@
 <body>
 <?php 
   session_start(); 
-  require('isloggedin.php');
   require("../db/dbconn.php");
 
-  echo  $_SESSION['username'];
 
 
   $data = json_decode(file_get_contents("php://input"), TRUE);
   $date = $data['date'];
 
 
-  $query = "SELECT * FROM `timesheet` JOIN `employee` USING `employee_id`; WHERE date = $date";
+  // $query = "SELECT * FROM timesheet JOIN employee USING employee_id WHERE date = $date";
+  $query = "SELECT * from EMPLOYEE";
     
   if ($result = $conn->query($query)) {
   
-      echo '<table border="0" cellspacing="2" cellpadding="2"> 
-                <th>';
-               echo   "<td>S/N</td>";
-                  echo "<td>name</td>";
-                echo  "<td>department</td>".
-                  "<td>role</td>".
-                  "<td>time in</td>".
-                "  <td>time out</td>".
-               " </th> ";
+      echo "<table border='4' cellspacing='2' cellpadding='6'>";
+                echo "<tr><th>S/N</th>".
+                   "<th>name</th>".
+                  "<th>department</th>".
+                  "<th>role</th>".
+               " </tr> ";
               
               
                while ($row = $result->fetch_assoc()) {
-                echo "<td>" . $row['id'] . "</td>";
-                echo "<td>" . $row['name'] . "</td>";
-                echo "<td>" . $row['department'] . "</td>";
-                echo "<td>" . $row['role'] . "</td>";  
-                echo "<td>" . $row['time_in'] . "</td>";
-                echo "<td>" . $row['time_out'] . "</td>";
+                echo "<tr><td>" . $row['id'] . "</td>".
+                 "<td>" . $row['firstname'] . " ".$row['lastname']. "</td>".
+                 "<td>" . $row['department'] . "</td>".
+                 "<td>" . $row['role'] . "</td></tr>";  
+               
              
-                    }
+                    }  
+                echo "</table>";
+
                   }
           
 ?>

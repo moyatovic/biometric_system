@@ -1,5 +1,5 @@
 <?php
- 
+ session_start();
   require('../db/dbconn.php');
 // fetching encoded json data from angular
   $data = json_decode(file_get_contents("php://input"), TRUE);
@@ -15,10 +15,9 @@
   $department  = $data['department'];
   $role = $data['role'];
   $employmentType = $data['employmentType'];
-  $createdBy = $data['createdBy'];
+ 
 
-
-        $query = "INSERT INTO employee VALUE (null, '$firstname', '$lastname', '$middlename',' $dob',' $gender','$marital', '$address', '$phone', '$joinedDate', '$department', '$role',' $employmentType', '$createdBy')" ;
+        $query = "INSERT INTO employee VALUE (null, '$firstname', '$lastname', '$middlename',' $dob',' $gender','$marital', '$address', '$phone', '$joinedDate', '$department', '$role',' $employmentType')" ;
                 
            if (mysqli_query($conn, $query)) {
                   echo "New record created successfully";

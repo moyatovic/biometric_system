@@ -23,7 +23,7 @@
        //verify that the username and password tally with that in the database
       if($username == $user && $password == $pass){          
           $_SESSION['name'] = $user;
-          echo  json_encode($_SESSION['name']);
+          json_encode($_SESSION['name']);
           header( "HTTP/1.1 200 OK" );
           echo "{\"success\": true, \"message\": signed in}";
           $conn->close();
