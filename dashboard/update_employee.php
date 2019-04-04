@@ -5,15 +5,15 @@ $sql = "UPDATE employees SET
  firstname = $data->firstname
   lastname = $data->lastname
   middlename = $data->lastname
-  $dob = date('Y-m-d', strtotime($data->dob
-  $gender = $data['gender'];
-  $marital = $data['marital'];
-  $address = $data['address'];
-  $phone = $data['phone'];
-  $joinedDate = date('Y-m-d', strtotime($data['joinedDate']));
-  $department  = $data['department'];
-  $role = $data['role'];
-  $employmentType = $data['employmentType'];"
+  dob = date('Y-m-d', strtotime($data->dob)
+  gender = $data->gender
+  marital_status = $data->marital
+  `address` = $data->address
+  phone_number = $data->phone
+  joinedfirmdate = date('Y-m-d', strtotime($data->joinedDate))
+  department  = $data->department
+  `role` = $data->role
+  employmentType = $data->employmentType";
 
 
 $qry = $conn->query($sql);
