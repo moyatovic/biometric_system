@@ -22,10 +22,10 @@ $employees = [];
       $i = 0;                   
       while ($row = $result->fetch_assoc()) {
           $employees[$i]['id'] = $row['id'];
-          $employees[$i]['name'] = $row['firstname']." ".$row['lastname'];
+          $employees[$i]['firstname'] = $row['firstname']." ".$row['lastname'];
           $employees[$i]['department'] = $row['department'];
           $employees[$i]['role'] = $row['role'];
-        
+          $i++;
           
           }  
       echo json_encode($employees);
