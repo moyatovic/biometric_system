@@ -17,15 +17,14 @@
   $role = mysqli_real_escape_string($conn, trim($data['role']));
   $employmentType = mysqli_real_escape_string($conn, trim($data['employmentType']));
  
-
         $query = "INSERT INTO employee VALUE (null, '$firstname', '$lastname', '$middlename',' $dob',' $gender','$marital', '$address', '$phone', '$joinedDate', '$department', '$role',' $employmentType')" ;
                 
-           if (mysqli_query($conn, $query)) {
-                  echo "New record created successfully";
+           if (mysqli_query($conn, $query)) {                  
+                  echo "New record created successfully";mysqli_close($conn);
             } else {
                   echo "Error: " . $query . "<br>" . mysqli_error($conn);
             }
-            mysqli_close($conn);
+           
             
               
 

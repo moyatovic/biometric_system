@@ -1,13 +1,21 @@
 <?php
 $data = json_decode(file_get_contents("php://input"));
 require("../db/dbconn.php");
-$sql = "SELECT * FROM employees WHERE id = '$data->id'";
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
+
+
+$emp = array() ;
+
+$user_id = 1;
+$query = "SELECT * FROM employee WHERE id = '".$user_id."'";
+$result = mysqli_query($conn, $query);
+
+$numrows = mysqli_num_rows($result);
+
+if ($numrows > 0) {
     // output data of each row
-     $emp = array() ;
+    
     while($row = $result->fetch_assoc()) {
-        $emp[] = $row;
+        $emp = $row;
     }
 } else {
     echo "0 results";

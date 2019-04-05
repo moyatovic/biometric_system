@@ -1,16 +1,16 @@
 <?php
-    session_start();
-    reqiure("../db/dbconn.php");
+   
+    require("../db/dbconn.php");
 
-
-    $entry_time = date('h:i:sa');
-    $entry_date = date('d-m-Y');
+ session_start();
+    $entry_time = date('h:i:s');
+    $entry_date = date('Y-m-d');
     $data = json_decode(file_get_contents("php://input"), TRUE);
-    $user_id = $data['user_id'];
-    echo $user_id;
+    $username = $data['user_id'];
+    echo $username;
     
-    if($user_id){
-    $query = "SELECT * FROM report where employee_id = '".$user_id."' AND entry_date = '".$entry_date."'";
+    if($username){
+    $query = "SELECT * FROM timesheet where employee_name = '".$username."' AND time_out = null AND entry_date = '".$entry_date."'";
 
     $result = mysqli_query($conn, $query);
     
@@ -20,13 +20,15 @@
     
     if($numrows==0){
 
-      $query = "INSERT INTO timesheet (id,employee_name,time_in, entry_date) VALUES('','$user_id','$entry_time','$entry_date')";
+      $query = "INSERT INTO timesheet (id,employee_name,time_in, entry_date) VALUES(null,'$username','$entry_time','$entry_date')";
 
-      mysqli_query($conn, $query);
-
+      if (mysqli_query($conn, $query)) {                  
+        echo " successfully";mysqli_close($conn);
+  } else {
+        echo "Error: " . $query . "<br>" . mysqli_error($conn);
+  }
       
       
-      echo "Successfully Added";
 //            return true;
       }
       else {

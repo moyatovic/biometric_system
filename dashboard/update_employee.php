@@ -1,7 +1,7 @@
 <?php
 $data = json_decode(file_get_contents("php://input"));
-include "db.php";
-$sql = "UPDATE employees SET
+require("../db/dbconn.php");
+$sql = "UPDATE employee SET
  firstname = $data->firstname
   lastname = $data->lastname
   middlename = $data->lastname

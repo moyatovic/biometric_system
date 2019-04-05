@@ -14,15 +14,12 @@
 $employees = [];
 
 
-  $query = "SELECT * from EMPLOYEE";
+  $query = "SELECT * FROM employee";
     
   if ($result = $conn->query($query)) {
       $i = 0;                   
       while ($row = $result->fetch_assoc()) {
-          $employees[$i]['id'] = $row['id'];
-          $employees[$i]['firstname'] = $row['firstname']." ".$row['lastname'];
-          $employees[$i]['department'] = $row['department'];
-          $employees[$i]['role'] = $row['role'];
+          $employees[$i] = $row;
           $i++;
           
           }  
@@ -32,6 +29,6 @@ $employees = [];
       else{
         http_response_code(404);
       }
-          
+     mysqli_close($conn);     
 ?>
 
