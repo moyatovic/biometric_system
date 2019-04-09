@@ -6,7 +6,7 @@
      // $date = date('Y-m-d', strtotime($data['date']));
      $date = date('Y-m-d');
 
-      $query = "SELECT * FROM timesheet where entry_date ='".$date."'";
+      $query = "SELECT e.firstname, e.lastname, d.department, t.time_in, t.time_out FROM timesheet where entry_date ='".$date."'";
 
       if ($result = $conn->query($query)) {
         $i = 0;                   
@@ -14,8 +14,9 @@
             $employees[$i] = $row;
             $i++;
             
-            }  
-        echo json_encode($employees);
+            } 
+          // print_r($employees);
+        echo json_encode($employee);
   
         }
         else{

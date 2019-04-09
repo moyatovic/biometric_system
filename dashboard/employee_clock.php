@@ -52,7 +52,7 @@
    
     require("../db/dbconn.php");
 
-    session_start();
+
     $entry_time = date("h:i:sa");
     $entry_date = date('Y-m-d');
     $data = json_decode(file_get_contents("php://input"), TRUE);

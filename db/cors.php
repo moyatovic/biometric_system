@@ -1,6 +1,6 @@
 <?Php
 
-function cors() {
+
 
   // Allow from any origin
   if (isset($_SERVER['HTTP_ORIGIN'])) {
@@ -23,8 +23,7 @@ function cors() {
 
       exit(0);
   }
-}
-cors();
+
 
 
 ?>
