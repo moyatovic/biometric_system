@@ -15,7 +15,7 @@ $employees = [];
 
   $query = "SELECT employee.firstname, employee.lastname, department.department_name, timesheet.time_in,timesheet.time_out, timesheet.entry_date FROM timesheet  
   INNER JOIN employee  ON timesheet.employee_id = employee.id
-  INNER JOIN department ON employee.department = department.id WHERE timesheet.entry_date = '".$date."'";
+  INNER JOIN department ON employee.department = department.id WHERE timesheet.entry_date = '".$date."'ORDER BY employee_id";
   
    if($stmt = $conn->prepare($query)){
    

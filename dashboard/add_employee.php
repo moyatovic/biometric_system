@@ -9,12 +9,12 @@
   $middlename = mysqli_real_escape_string($conn, trim($data ['middlename']));
   $dob = date('Y-m-d', strtotime($data['dob']));
   $gender = mysqli_real_escape_string($conn, trim($data['gender']));
-  $marital = mysqli_real_escape_string($conn, trim($data['marital']));
-  $address = mysqli_real_escape_string($conn, trim($data['address']));
-  $phone = "234".mysqli_real_escape_string($conn, trim($data['phone']));
-  $joinedDate = date('Y-m-d', strtotime($data['joinedDate']));
+  $marital = mysqli_real_escape_string($conn, trim($data['marital_status']));
+  $address = mysqli_real_escape_string($conn, trim($data['home_address']));
+  $phone = "234".mysqli_real_escape_string($conn, trim($data['phone_number']));
+  $joinedDate = date('Y-m-d', strtotime($data['joinedfirmdate']));
   $department  = mysqli_real_escape_string($conn, trim($data['department']));
-  $employmentType = mysqli_real_escape_string($conn, trim($data['employmentType']));
+  $employmentType = mysqli_real_escape_string($conn, trim($data['employment_type']));
   $pin = md5(mysqli_real_escape_string($conn, trim($data['pin'])));
 
   
@@ -23,7 +23,7 @@
                 
            if (mysqli_query($conn, $query)) {                  
                   echo "New record created successfully";
-                  header("Refresh:0");
+                 
                   mysqli_close($conn);
                   header('HTTP// 200 ok');
             } else {
