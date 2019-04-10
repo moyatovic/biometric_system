@@ -6,7 +6,7 @@
      // $date = date('Y-m-d', strtotime($data['date']));
      $date = date('Y-m-d');
 
-      $query = "SELECT e.firstname, e.lastname, d.department, t.time_in, t.time_out FROM timesheet where entry_date ='".$date."'";
+      $query = "SELECT e.firstname, e.lastname, d.department, t.time_in, t.time_out FROM timesheet where entry_date ='".$date."' ORDER BY employee_id";
 
       if ($result = $conn->query($query)) {
         $i = 0;                   

@@ -4,8 +4,8 @@
 
 
 
-  $data = json_decode(file_get_contents("php://input"), TRUE);
-  $date = date('Y-m-d', strtotime($data['date']));
+  
+  $date = date('Y-m-d');
   
 
   // $query = "SELECT * FROM timesheet JOIN employee USING employee_id WHERE date = $date";
@@ -14,16 +14,23 @@
 $employees = [];
 
 
-  $query = "SELECT e.firstname, e.lastname d.department, t.time_in,t.time_out FROM ((timesheet t, 
-  INNER JOIN employee e ON t.employee_id = e.id)
-  INNER JOIN department d ON e.department = d.id) WHERE entry_date = $date ";
-    
-  if ($result = $conn->query($query)) {
-      $i = 0;                   
-      while ($row = $result->fetch_assoc()) {
+  $query = "SELECT employee.firstname, employee.lastname, department.department_name, timesheet.time_in,timesheet.time_out, timesheet.entry_date FROM timesheet  
+  INNER JOIN employee  ON timesheet.employee_id = employee.id
+  INNER JOIN department ON employee.department = department.id WHERE timesheet.entry_date = '".$date."' ORDER BY employee_id";
+  echo $date;
+   if($stmt = $conn->prepare($query)){
+   
+    $stmt->execute();
+  
+   $result = $stmt->get_result();
+    if($result->num_rows >0 ){
+   echo "No of records : ".$result->num_rows."<br>";
+   $i=0;
+               
+      while ($row=$result->fetch_object()) {
           $employees[$i] = $row;
           $i++;
-          echo "it works but it empty";
+         
           }  
       echo json_encode($employees);
 
@@ -31,6 +38,8 @@ $employees = [];
       else{
         http_response_code(404);
       }
-     mysqli_close($conn);     
+    }
+     mysqli_close($conn);  
+
 ?>
 

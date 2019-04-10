@@ -17,7 +17,5 @@ $sql = "UPDATE employee SET
 
 
 $qry = $conn->query($sql);
-if($data->name){
-}
 $conn->close();
 ?>
