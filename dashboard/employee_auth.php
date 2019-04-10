@@ -1,7 +1,7 @@
 <?php
  // connection to database file
         require('../db/dbconn.php');
-       session_start();
+       
 
     //  fetch json data sent from angular
       $data = json_decode(file_get_contents("php://input"), TRUE);

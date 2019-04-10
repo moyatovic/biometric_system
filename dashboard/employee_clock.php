@@ -2,7 +2,7 @@
    
     require("../db/dbconn.php");
 
-    session_start();
+    
 
     $entry_time = date('H:i:sa');
     $entry_date = date('Y-m-d');

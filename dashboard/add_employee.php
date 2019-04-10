@@ -1,6 +1,6 @@
 <?php
   require('../db/dbconn.php'); 
-  session_start();
+ 
 
 // fetching encoded json data from angular
   $data = json_decode(file_get_contents("php://input"), TRUE);
@@ -23,7 +23,7 @@
                 
            if (mysqli_query($conn, $query)) {                  
                   echo "New record created successfully";
-
+                  header("Refresh:0");
                   mysqli_close($conn);
                   header('HTTP// 200 ok');
             } else {

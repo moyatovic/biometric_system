@@ -3,8 +3,7 @@
         require('../db/dbconn.php');
 
 
-        session_start();
-
+       
      
 
       //sql statement to pull username and password from admin table
