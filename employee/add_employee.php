@@ -13,13 +13,13 @@
   $address = mysqli_real_escape_string($conn, trim($data['home_address']));
   $phone = "234".mysqli_real_escape_string($conn, trim($data['phone_number']));
   $joinedDate = date('Y-m-d', strtotime($data['joinedfirmdate']));
-  $department  = mysqli_real_escape_string($conn, trim($data['department']));
+  $department  = mysqli_real_escape_string($conn, trim($data['department_name']));
   $employmentType = mysqli_real_escape_string($conn, trim($data['employment_type']));
   $pin = md5(mysqli_real_escape_string($conn, trim($data['pin'])));
 
   
       
-        $sel_query = "INSERT INTO employee VALUES (null,'$firstname', '$lastname', '$middlename',' $dob',' $gender','$marital', '$address', '$phone', '$joinedDate', (SELECT id FROM department WHERE department_name = '$department'), ' $employmentType', '$pin')" ;
+        $sel_query = "INSERT INTO employee VALUES (null,'$firstname', '$lastname', '$middlename',' $dob',' $gender','$marital', '$address', '$phone', '$joinedDate', (SELECT id FROM department WHERE department_name = '".$department."'), ' $employmentType', '$pin')" ;
                 
            if (mysqli_query($conn, $sel_query)) {                  
                   echo "New record created successfully";
