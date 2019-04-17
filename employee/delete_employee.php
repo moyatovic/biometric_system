@@ -7,8 +7,8 @@ $data = json_decode(file_get_contents("php://input"), true);
         $del_query->bindParam(':id', $data['id']);
         $chk_ins=$del_query->execute();
     }
-    $sel_query = $conn->prepare("select * from tbl_name order by id ");
-    $sel_query->execute();
-    echo json_encode($sel_query->fetchAll());
+    $sel_query = $conn->prepare("SELECT * FROM employee ");
+    $sel = $sel_query->execute();
+    echo json_encode($sel);
 
 ?>

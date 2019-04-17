@@ -19,15 +19,15 @@
 
   
       
-        $query = "INSERT INTO employee VALUES (null,'$firstname', '$lastname', '$middlename',' $dob',' $gender','$marital', '$address', '$phone', '$joinedDate', (SELECT id FROM department WHERE department_name = '$department'), ' $employmentType', '$pin')" ;
+        $sel_query = "INSERT INTO employee VALUES (null,'$firstname', '$lastname', '$middlename',' $dob',' $gender','$marital', '$address', '$phone', '$joinedDate', (SELECT id FROM department WHERE department_name = '$department'), ' $employmentType', '$pin')" ;
                 
-           if (mysqli_query($conn, $query)) {                  
+           if (mysqli_query($conn, $sel_query)) {                  
                   echo "New record created successfully";
                  
                   mysqli_close($conn);
                   header('HTTP// 200 ok');
             } else {
-                  echo "Error: " . $query . "<br>" . mysqli_error($conn);
+                  echo "Error: " . $sel_query . "<br>" . mysqli_error($conn);
             }
                 
             

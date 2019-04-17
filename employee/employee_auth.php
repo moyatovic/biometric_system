@@ -4,16 +4,13 @@
        
 
     //  fetch json data sent from angular
-      $data = json_decode(file_get_contents("php://input"), TRUE);
- 
+      $data = json_decode(file_get_contents("php://input"), TRUE);    
+      $user = mysqli_real_escape_string($conn, md5(3214));
        
 
-    
-      $user = mysqli_real_escape_string($conn, md5($data['pin']));
-  echo $user." ";
       //sql statement to pull username and password from employee table
-        $query = "SELECT id, pin FROM employee where pin = ?";
-        if($stmt = $conn->prepare($query)){
+        $sel_query = "SELECT id, pin FROM employee where pin = ?";
+        if($stmt = $conn->prepare($sel_query)){
           $stmt->bind_param('i',$user);
           $stmt->execute();
         
@@ -30,10 +27,9 @@
         header( "HTTP/1.1 401 invalid credentials" );
           exit;
              }    
-      echo $pin." ";
-      echo 'rererer';
-    
       }
-      
+      else {
+        header("HTTP/1.1 404 page not found");
+      }
              
       ?>

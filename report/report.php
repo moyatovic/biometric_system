@@ -20,7 +20,7 @@
   
         }
         else{
-          http_response_code(404);
+          http_response_code(405);
         }
        mysqli_close($conn);   
 ?>
