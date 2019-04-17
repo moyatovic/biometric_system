@@ -3,7 +3,7 @@
   require('../db/dbconn.php');
 
   $data = json_decode(file_get_contents("PHP://input"),true);
-   $date = date('Y-m-d', strtotime("data['date']")); 
+  $date =  date('Y-m-d', strtotime(mysqli_real_escape_string($conn, $data['date']))); 
   
   $employees = [];
 

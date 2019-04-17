@@ -3,15 +3,15 @@
   require('../db/dbconn.php');
 
   $data = json_decode(file_get_contents("PHP://input"),true);
-   $date = date('Y-m-d', strtotime("data['date']")); 
-  
+  $date =  date('Y-m-d', strtotime(mysqli_real_escape_string($conn, $data['date']))); 
+
   $employees = [];
 
   //select the User id that exist in timesheet table 
-  $sel_query ="SELECT employee.firstname, employee.lastname, department.department_name FROM employee 
-  INNER JOIN department ON employee.department = department.id
-    WHERE employee.id NOT IN 
-    (SELECT t.employee_id FROM timesheet t WHERE entry_date = '".$date."')";
+  $sel_query = "SELECT employee.firstname, employee.lastname, department.department_name, timesheet.time_in, time_out, timesheet.entry_date FROM timesheet  
+  INNER JOIN employee  ON timesheet.employee_id = employee.id
+  INNER JOIN department ON employee.department = department.id WHERE timesheet.entry_date = '2019-04-10' ORDER BY employee_id";
+  
   
   $stmt = $conn->prepare($sel_query);
 
