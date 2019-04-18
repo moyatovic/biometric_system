@@ -1,39 +1,39 @@
 <?php
  // connection to database file
-        require('../db/dbconn.php');
+      require('../db/dbconn.php');
 
 
-       
-     
-
-      //sql statement to pull username and password from admin table
-        $query = "SELECT * FROM admins"; 
-        if ($result = $conn->query($query)) {
-          while ($row = $result->fetch_assoc()) {
-          $username = $row['username'];
-          $password = $row['password'];
-        }
-      }
-        //  fetch json data sent from angular
       $data = json_decode(file_get_contents("php://input"), TRUE);
-      $user = $data['username'];
-      $pass = $data['password'];
-
-       //verify that the username and password tally with that in the database
-      if($username == $user && $password == $pass){          
-          $_SESSION['name'] = $user;
-          json_encode($_SESSION['name']);
-          header( "HTTP/1.1 200 OK" );
-          echo "{\"success\": true, \"message\": signed in}";
-          $conn->close();
-        exit;     
-      }
-      else{ 
-          echo "{
-          \"success\": false, \"message\": Incorrect username or Password
-        }";
+      $username = mysqli_real_escape_string($conn, $data['username']);
+      $password = mysqli_real_escape_string($conn, md5($data['password']));
+      
+      //Retrieve the admin account information for the given username.
+        $sel_query = "SELECT id, username, password FROM admins WHERE username = ?";
+        $stmt = $conn->prepare($sel_query);
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+    
+     //If $row is FALSE.
+     if($user === false){
+        //Could not find a admin with that username!
          http_response_code(401);
-          exit;
-                
-              }
+        die('Incorrect username / password combination!');
+       
+    } else{
+        // admin found. Check if password matches the password hash in database
+        if($password == $user['password']){
+           header( "HTTP/1.1 200 OK" );
+            exit;
+            
+        } else{
+            //Passwords do not match.
+             http_response_code(401);
+            die('Incorrect username / password combination!');
+           
+        }
+    }
+      
+       
       ?>

@@ -5,7 +5,7 @@
 
     //  fetch json data sent from angular
       $data = json_decode(file_get_contents("php://input"), TRUE);    
-      $user = mysqli_real_escape_string($conn, md5(3214));
+      $user = mysqli_real_escape_string($conn, md5($data['pin']));
        
 
       //sql statement to pull username and password from employee table

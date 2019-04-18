@@ -33,7 +33,8 @@
 
       }
       else{
-        echo json_encode($result);
+        $employees[]= array("firstname"=>" ","lastname"=>" ", "department"=>" ", "time_in"=>" ", "entry_date"=>"$date" );
+        echo json_encode($employees);
       }
     }
      mysqli_close($conn);  

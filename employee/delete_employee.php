@@ -10,6 +10,7 @@ $data = json_decode(file_get_contents("php://input"), true);
         echo "deleted";
     }
     else {
+        echo "No id received ";
         http_response_code(400);
     }
 
