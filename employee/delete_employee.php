@@ -1,14 +1,16 @@
 <?php
 require("../db/dbconn.php");
 $data = json_decode(file_get_contents("php://input"), true);
-    if(!empty($data['id']))
+  $id = $data['id'];
+    if(!empty($id))
     {
-        $del_query=$conn->prepare("DELETE FROM employee WHERE id=:id");
-        $del_query->bindParam(':id', $data['id']);
-        $chk_ins=$del_query->execute();
+        $del_query=$conn->prepare("DELETE FROM employee WHERE id = $id");
+        $del_query->execute();
+
+        echo "deleted";
     }
-    $sel_query = $conn->prepare("SELECT * FROM employee ");
-    $sel = $sel_query->execute();
-    echo json_encode($sel);
+    else {
+        http_response_code(400);
+    }
 
 ?>
